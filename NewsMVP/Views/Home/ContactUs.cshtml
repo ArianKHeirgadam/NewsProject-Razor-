@@ -1,0 +1,124 @@
+﻿@{
+    ViewData["Title"] = "تماس با ما";
+}
+
+<h1>تماس با ما</h1>
+<!-- Contact Section -->
+<section class="contact-section">
+    <div class="container">
+        <div class="contact-container">
+            <!-- Contact Info -->
+            <div class="contact-info">
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3 class="info-title">آدرس</h3>
+                        <p class="info-text">تهران، خیابان ولیعصر، پلاک ۱۲۳</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3 class="info-title">تلفن تماس</h3>
+                        <p class="info-text"><a href="tel:+982112345678">۰۲۱-۱۲۳۴۵۶۷۸</a></p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3 class="info-title">ایمیل</h3>
+                        <p class="info-text"><a href="mailto:info@example.com">info@example.com</a></p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3 class="info-title">ساعات کاری</h3>
+                        <div class="working-hours">
+                            <div class="hours-item">
+                                <span class="hours-day">شنبه تا چهارشنبه:</span>
+                                <span class="hours-time">۹ صبح تا ۶ عصر</span>
+                            </div>
+                            <div class="hours-item">
+                                <span class="hours-day">پنجشنبه:</span>
+                                <span class="hours-time">۹ صبح تا ۲ عصر</span>
+                            </div>
+                            <div class="hours-item">
+                                <span class="hours-day">جمعه:</span>
+                                <span class="hours-closed">تعطیل</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="contact-form-container">
+                <form class="contact-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name" class="form-label">نام و نام خانوادگی</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="form-label">ایمیل</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject" class="form-label">موضوع</label>
+                        <input type="text" id="subject" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message" class="form-label">پیام</label>
+                        <textarea id="message" class="form-control" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">ارسال پیام</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Map Section -->
+<section class="map-section">
+    <div class="container">
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3237.1234567890123!2d51.3890!3d35.6892!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzXCsDQxJzIxLjEiTiA1McKwMjMnMjAuNCJF!5e0!3m2!1sen!2sir!4v1234567890" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq-section">
+    <div class="container">
+        <h2 class="section-title">سوالات متداول</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>چگونه می‌توانم با شما همکاری کنم؟</h3>
+                </div>
+                <div class="faq-answer">
+                    <p>برای همکاری با ما، می‌توانید از طریق فرم تماس با ما درخواست خود را ارسال کنید. کارشناسان ما در اسرع وقت با شما تماس خواهند گرفت.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>آیا امکان بازدید از دفتر شما وجود دارد؟</h3>
+                </div>
+                <div class="faq-answer">
+                    <p>بله، با هماهنگی قبلی می‌توانید از دفتر ما بازدید کنید. لطفاً از طریق تلفن یا ایمیل با ما هماهنگ کنید.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

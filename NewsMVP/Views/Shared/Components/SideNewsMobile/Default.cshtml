@@ -1,0 +1,16 @@
+﻿@model NewsMVP.MOdels.TblNews
+
+<a class="a_NewsFast" href="/Home/NewsDetail/@Model.Id">
+    <div>
+        <p class="paragraf_MenoMobile">خبر فوری</p>
+    </div>
+    <div>
+        <img class="image_MenoMobil" src="~/images/@Model.ImageUrlno1" alt="@Model.Title" />
+    </div>
+    <div class="D_MenoMobil">
+        <h4 class="TitleMenoMobile">@Model.Title</h4>
+        <p class="description_MenoMobile">
+            برای دریافت آخرین اخبار اینجا کلیک کنید
+        </p>
+    </div>
+</a>

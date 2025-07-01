@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewData["Title"] = "Login";
+}
+<div class="login-container">
+    <div class="login-box">
+        <form class="login-form" id="login-form">
+            <div class="input-group">
+                <label for="username">نام کاربری یا ایمیل</label>
+                <input type="text" id="username" required>
+            </div>
+            <div class="input-group">
+                <label for="password">رمز عبور</label>
+                <input type="password" id="password" required>
+            </div>
+            <div class="options-group">
+    
+                
+                <a href="#" class="forgot-password">رمز عبور را فراموش کرده‌اید؟</a>
+            </div>
+
+            <button type="button" class="btn btn-primary" id="login-button">ورود</button>
+         
+            <br />
+            <div class="signup-link">
+                <p>حساب کاربری ندارید؟ <a href="#">ثبت نام کنید</a></p>
+            </div>
+        </form>
+        <script>
+            document.getElementById('login-button').onclick = function () {
+                const dto = {
+                    userName: document.getElementById('username').value,
+                    password: document.getElementById('password').value
+                };
+
+                $.ajax({
+                    url: 'https://localhost:7122/api/Account/login',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(dto),
+                    success: function (res) {
+                        const token = typeof res === 'string' ? res.replace(/^"|"$/g, '') : res?.token;
+
+                        if (token && token.length > 10) {
+                            localStorage.setItem('token', token);
+                            alert('ورود موفق بود!');
+                            window.location.href = '/';
+                        } else {
+                            alert('رمز یا نام کاربری اشتباه است.');
+                        }
+                    },
+                    error: function (err) {
+                        alert('خطا: ' + err.responseText);
+                    }
+                });
+            };
+        </script>
+
+
+    </div>
+</div>
+

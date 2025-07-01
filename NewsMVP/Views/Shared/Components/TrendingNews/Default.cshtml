@@ -1,0 +1,7 @@
+﻿@using NewsMVP.MOdels
+@model List<TblNews>
+
+@foreach (var item in Model)
+{
+    <div class="trending-item">@item.Title</div>
+}

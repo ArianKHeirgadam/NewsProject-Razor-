@@ -1,0 +1,76 @@
+﻿@model List<NewsMVP.MOdels.TblNews>
+
+@if (Model.Any())
+{
+    <div class="category-grid">
+        <div class="category-main">
+            @{
+                var mainNews = Model.First();
+            }
+            <article class="category-main-card">
+                <div class="category-main-image">
+                    <img src="~/images/@mainNews.ImageUrlno1" alt="@mainNews.Title">
+                </div>
+                <div class="category-main-content">
+                    <h3 class="category-main-title">
+                        <a asp-action="NewsDetail" asp-controller="Home" asp-route-id="@mainNews.Id">
+                            @mainNews.Title
+                        </a>
+                    </h3>
+                    <p class="category-main-excerpt">@mainNews.Summry</p>
+                    <div class="category-main-meta">
+                        <i class="far fa-clock"></i>
+                        <span>@mainNews.Date.ToString("yyyy/MM/dd")</span>
+                        <i class="far fa-eye ml-2"></i>
+                        <span>@mainNews.ViewCount بازدید</span>
+                    </div>
+                </div>
+            </article>
+
+            @foreach (var item in Model.Skip(1).Take(2))
+            {
+                <article class="category-card">
+                    <div class="category-card-image">
+                        <img src="~/images/@item.ImageUrlno1" alt="@item.Title">
+                    </div>
+                    <div class="category-card-content">
+                        <h3 class="category-card-title">
+                            <a asp-action="NewsDetail" asp-controller="Home" asp-route-id="@item.Id">
+                                @item.Title
+                            </a>
+                        </h3>
+                        <div class="category-card-meta">
+                            <i class="far fa-clock"></i>
+                            <span>@item.Date.ToString("yyyy/MM/dd")</span>
+                        </div>
+                    </div>
+                </article>
+            }
+        </div>
+        <div class="category-list">
+            @foreach (var item in Model.Skip(3))
+            {
+                <article class="category-list-item">
+                    <div class="category-list-image">
+                        <img src="~/images/@item.ImageUrlno1" alt="@item.Title">
+                    </div>
+                    <div class="category-list-content">
+                        <h3 class="category-list-title">
+                            <a asp-action="NewsDetail" asp-controller="Home" asp-route-id="@item.Id">
+                                @item.Title
+                            </a>
+                        </h3>
+                        <div class="category-list-meta">
+                            <i class="far fa-clock"></i>
+                            <span>@item.Date.ToString("yyyy/MM/dd")</span>
+                        </div>
+                    </div>
+                </article>
+            }
+        </div>
+    </div>
+}
+else
+{
+    <p>هیچ خبری برای این دسته‌بندی وجود ندارد.</p>
+}

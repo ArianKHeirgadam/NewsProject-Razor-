@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<head>
+<html lang="fa" dir="rtl">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+@{
+    ViewData["Title"] = "Signup";
+}
+
+<link rel="stylesheet" href="css/SignupMode4.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+<div class="signup-container">
+    <div class="floating-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+    </div>
+
+    <div class="signup-box">
+        <div class="signup-header">
+            <h1 class="signup-title">ثبت نام</h1>
+            <p class="signup-subtitle">به جمع خبرنگاران ما بپیوندید</p>
+        </div>
+
+        <form class="signup-form">
+                <div class="input-group">
+                    <label for="fullname">نام و نام خانوادگی</label>
+                    <input type="text" id="fullname" placeholder="نام و نام خانوادگی خود را وارد کنید" required>
+                </div>
+            <div class="input-group">
+                <label for="username">نام کاربری</label>
+                <input type="text" id="username" required>
+            </div>
+            <div class="input-group">
+                <label for="tel">شماره تماس</label>
+                <input type="tel" id="tel" required>
+            </div>
+            <div class="input-group">
+                <label for="password">رمز عبور</label>
+                <input type="password" id="password" required>
+            </div>
+
+            <button type="button" class="signup-btn">ثبت نام</button>
+
+            <p class="login-link">قبلاً ثبت نام کرده‌اید؟ <a href="/Login">ورود</a></p>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(() => {
+            $('.signup-btn').click(() => {
+                const name = $('#fullname').val();
+                const userName = $('#username').val();
+                const tell = $('#tel').val();
+                const password = $('#password').val();
+
+                const dto = { name, userName, tell, password };
+
+                $.ajax({
+                    url: 'https://localhost:7122/api/Account/signup',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(dto),
+                    success: () => {
+                    
+                        $.ajax({
+                            url: 'https://localhost:7122/api/Account/login',
+                            method: 'POST',
+                            contentType: 'application/json',
+                            data: JSON.stringify({ userName, password }),
+                            success: (res) => {
+                                const token = typeof res === 'string' ? res.replace(/^"|"$/g, '') : res.token;
+                                localStorage.setItem('token', token);
+                                window.location.href = '/';
+                            },
+                            error: err => alert('خطا در ورود پس از ثبت‌نام: ' + err.responseText)
+                        });
+                    },
+                    error: err => alert('خطا در ثبت‌نام: ' + err.responseText)
+                });
+            });
+        });
+    </script>
+}
+    <script src="js/SignupMode4.js"></script>
+</body>
+</html>

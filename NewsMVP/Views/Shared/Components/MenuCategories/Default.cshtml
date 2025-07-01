@@ -1,0 +1,9 @@
+﻿@using NewsMVP.MOdels
+@model List<TblCategories>
+
+@foreach (var category in Model)
+{
+    <li class="li_subset">
+        <a asp-controller="Home" asp-action="ShowAll" asp-route-category="@category.Name">@category.Name</a>
+    </li>
+}

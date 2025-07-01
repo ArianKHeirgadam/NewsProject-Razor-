@@ -1,0 +1,211 @@
+﻿@model NewsMVP.Models.HomeViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<section class="hero-section">
+    <div class="container">
+        <div class="hero-grid">
+            <div class="main-slider">
+                <div class="slider-container">
+                    @for (int index = 0; index < Model.Slider.Count; index++)
+                    {
+                        var i = Model.Slider[index];
+                        var activeClass = index == 0 ? "active" : "";
+                        <div class="slide @activeClass">
+                            <img src="~/images/@i.ImageUrlno1" alt="اسلاید @index" class="slide-image">
+                            <div class="slide-overlay"></div>
+                            <div class="slide-content">
+                                <div class="slide-category">@i.CategoryName</div>
+                                <h2 class="slide-title">
+                                    <a asp-action="NewsDetail" asp-controller="Home" asp-route-id="@i.Id">
+                                        @i.Title
+                                    </a>
+                                </h2>
+                                <p class="slide-excerpt">@i.Summry</p>
+                                <div class="slide-meta">
+                                    <div class="meta-item">
+                                        <i class="far fa-clock"></i>
+                                        <span>@i.Date.ToString("yyyy/MM/dd")</span>
+                                    </div>
+                                    <div class="meta-item">
+                                        <i class="far fa-eye"></i>
+                                        <span>@i.ViewCount بازدید</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <div class="slider-controls">
+                        <div class="slider-dots">
+                            @for (int j = 0; j < Model.Slider.Count; j++)
+                            {
+                                var activeDot = j == 0 ? "active" : "";
+                                <span class="slider-dot @activeDot" data-index="@j"></span>
+                            }
+                        </div>
+                        <div class="slider-arrows">
+                            <button class="slider-arrow slider-prev"><i class="fas fa-chevron-right"></i></button>
+                            <button class="slider-arrow slider-next"><i class="fas fa-chevron-left"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="side-news">
+                @foreach (var item in Model.Side.OrderByDescending(n => n.ViewCount))
+                {
+                    <div class="side-card">
+                        <div class="side-card-image">
+                            <img src="~/images/@item.ImageUrlno1" alt="@item.Title">
+                        </div>
+                        <div class="side-card-overlay"></div>
+                        <div class="side-card-content">
+                            <div class="side-card-category">@item.CategoryName</div>
+                            <h3 class="side-card-title">
+                                <a asp-action="NewsDetail" asp-controller="Home" asp-route-id="@item.Id">
+                                    @item.Title
+                                </a>
+                            </h3>
+                            <div class="side-card-meta">
+                                <i class="far fa-clock"></i>
+                                <span>@item.Date.ToString("yyyy/MM/dd")</span>
+                                <i class="far fa-eye ml-2"></i>
+                                <span>@item.ViewCount بازدید</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const slides = document.querySelectorAll(".slide");
+        const dots = document.querySelectorAll(".slider-dot");
+        const nextBtn = document.querySelector(".slider-next");
+        const prevBtn = document.querySelector(".slider-prev");
+        let currentIndex = 0;
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle("active", i === index);
+                dots[i].classList.toggle("active", i === index);
+            });
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % totalSlides;
+            showSlide(currentIndex);
+        }
+
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+            showSlide(currentIndex);
+        }
+
+        dots.forEach(dot => {
+            dot.addEventListener("click", function () {
+                currentIndex = parseInt(this.getAttribute("data-index"));
+                showSlide(currentIndex);
+            });
+        });
+
+        nextBtn.addEventListener("click", nextSlide);
+        prevBtn.addEventListener("click", prevSlide);
+        setInterval(nextSlide, 5000);
+        showSlide(currentIndex);
+    });
+</script>
+
+<div class="container">
+    <div class="features-grid">
+        <!-- کارت‌های آب‌وهوا، ارز، نظرسنجی -->
+        <!-- اینجا ثابت موند چون ربطی به دیتا نداره -->
+    </div>
+</div>
+
+<section class="news-grid-section" >
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">آخرین اخبار</h2>
+            <a class="view-all" asp-controller="Home" asp-action="ShowAll">مشاهده همه <i class="fas fa-angle-left"></i></a>
+        </div>
+
+        <div class="news-grid">
+            @foreach (var item in Model.Latest)
+            {
+                var commentCount = Model.Comments.Count(c => c.NewsId == item.Id);
+                <article class="news-card">
+                    <div class="news-card-image">
+                        <img src="~/images/@item.ImageUrlno1" alt="@item.Title">
+                    </div>
+                    <div class="news-card-content">
+                        <h3 class="news-card-title">
+                            <a asp-action="NewsDetail" asp-controller="Home" asp-route-id="@item.Id" class="news-card-link">
+                                @item.Title
+                            </a>
+                        </h3>
+                        <p class="news-card-excerpt">@item.Summry</p>
+                        <div class="news-card-meta">
+                            <div class="news-card-date">
+                                <i class="far fa-clock"></i>
+                                <span>@item.Date.ToString("yyyy/MM/dd")</span>
+                            </div>
+                            <div class="news-card-comments">
+                                <i class="far fa-comment"></i>
+                                <span>@commentCount نظر</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            }
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <div class="category-tabs">
+        <div class="category-tab active" data-tab="politics">سیاسی</div>
+        <div class="category-tab" data-tab="economy">اقتصادی</div>
+        <div class="category-tab" data-tab="social">اجتماعی</div>
+        <div class="category-tab" data-tab="culture">فرهنگی</div>
+        <div class="category-tab" data-tab="sports">ورزشی</div>
+    </div>
+    <div class="category-content active" id="politics">
+        @await Component.InvokeAsync("CategoryNews", new { categoryName = "سیاسی" })
+    </div>
+    <div class="category-content" id="economy">
+        @await Component.InvokeAsync("CategoryNews", new { categoryName = "اقتصادی" })
+    </div>
+    <div class="category-content" id="social">
+        @await Component.InvokeAsync("CategoryNews", new { categoryName = "اجتماعی" })
+    </div>
+    <div class="category-content" id="culture">
+        @await Component.InvokeAsync("CategoryNews", new { categoryName = "فرهنگی" })
+    </div>
+    <div class="category-content" id="sports">
+        @await Component.InvokeAsync("CategoryNews", new { categoryName = "ورزشی" })
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const tabs = document.querySelectorAll(".category-tab");
+        const contents = document.querySelectorAll(".category-content");
+
+        tabs.forEach(tab => {
+            tab.addEventListener("click", () => {
+                tabs.forEach(t => t.classList.remove("active"));
+                contents.forEach(c => c.classList.remove("active"));
+                tab.classList.add("active");
+                const id = tab.getAttribute("data-tab");
+                document.getElementById(id).classList.add("active");
+            });
+        });
+    });
+</script>

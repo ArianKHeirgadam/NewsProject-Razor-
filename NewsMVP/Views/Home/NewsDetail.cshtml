@@ -1,0 +1,272 @@
+﻿@model NewsMVP.Models.NewsDetailViewModel
+@{
+    ViewData["Title"] = Model.News.Title;
+}
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>@Model.News.Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    <link rel="stylesheet" href="~/Font/fontawesome-free-6.7.2-web/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/SingleMode5.css" />
+    <link rel="stylesheet" href="~/css/MenoSubset.css" />
+    <link rel="stylesheet" href="~/css/Shared_menu.css" />
+    <link rel="stylesheet" href="~/css/Animate.min.css" />
+</head>
+<body>
+
+    
+    <div class="breadcrumb">
+        <div class="container">
+            <ul class="breadcrumb-list">
+                <li class="breadcrumb-item">
+                    <a asp-action="Index" asp-controller="Home" class="breadcrumb-link">صفحه اصلی</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="#" class="breadcrumb-link">@Model.News.CategoryName</a>
+                </li>
+                <li class="breadcrumb-item active">
+                    <span class="breadcrumb-link">@Model.News.Title</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    
+    <section class="article-section">
+        <div class="container">
+            <div class="article-container" style="display: flex; gap: 20px;">
+
+                
+                <div class="article-main" style="flex: 3;">
+                    <div class="article-header">
+                        <div class="article-category">@Model.News.CategoryName</div>
+                        <h1 class="article-title">@Model.News.Title</h1>
+                        <div class="article-meta">
+                            <div class="meta-item"><i class="far fa-clock"></i> تاریخ انتشار: @Model.News.Date.ToString("yyyy/MM/dd")</div>
+                            <div class="meta-item"><i class="far fa-eye"></i> @Model.News.ViewCount بازدید</div>
+                            <div class="meta-item"><i class="far fa-comment"></i> @Model.Comments.Count نظر</div>
+                        </div>
+                    </div>
+
+                    <div class="article-image">
+                        <img src="~/images/@Model.News.ImageUrlno1" alt="@Model.News.Title" />
+                    </div>
+
+                    <div class="article-content">
+                        @if (!string.IsNullOrEmpty(Model.News.Summry))
+                        {
+                            <div class="article-lead">@Model.News.Summry</div>
+                        }
+
+                        <div class="article-body">
+                            @if (!string.IsNullOrEmpty(Model.News.Body))
+                            {
+                                <p>@Model.News.Body</p>
+                            }
+
+                            @if (!string.IsNullOrEmpty(Model.News.BodyTitle1))
+                            {
+                                <h2>@Model.News.BodyTitle1</h2>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.News.BodyParagraph1))
+                            {
+                                <p>@Model.News.BodyParagraph1</p>
+                            }
+
+                            @if (!string.IsNullOrEmpty(Model.News.ImageUrlno2))
+                            {
+                                <div class="article-image">
+                                    <img src="~/images/@Model.News.ImageUrlno2" alt="تصویر دوم خبر" />
+                                </div>
+                            }
+
+                            @if (!string.IsNullOrEmpty(Model.News.BodyTitle2))
+                            {
+                                <h2>@Model.News.BodyTitle2</h2>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.News.BodyParagraph2))
+                            {
+                                <p>@Model.News.BodyParagraph2</p>
+                            }
+
+                            @if (!string.IsNullOrEmpty(Model.News.ImageUrlno3))
+                            {
+                                <div class="article-image">
+                                    <img src="~/images/@Model.News.ImageUrlno3" alt="تصویر سوم خبر" />
+                                </div>
+                            }
+
+                            @if (!string.IsNullOrEmpty(Model.News.BodyTitle3))
+                            {
+                                <h2>@Model.News.BodyTitle3</h2>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.News.BodyParagraph3))
+                            {
+                                <p>@Model.News.BodyParagraph3</p>
+                            }
+                        </div>
+
+                        <blockquote>@Model.News.Summry</blockquote>
+
+                        <div class="article-tags">
+                            <a href="#" class="article-tag">@Model.News.CategoryName</a>
+                        </div>
+
+                        <div class="article-share">
+                            <span class="share-title">اشتراک‌گذاری:</span>
+                            <div class="share-links">
+                                <a href="#" class="share-link telegram"><i class="fab fa-telegram"></i></a>
+                                <a href="#" class="share-link twitter"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="share-link whatsapp"><i class="fab fa-whatsapp"></i></a>
+                                <a href="#" class="share-link facebook"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#" class="share-link linkedin"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <aside class="sidebar" style="flex: 1;">
+
+                    
+                    <div class="widget">
+                        <div class="widget-header">
+                            <h3 class="widget-title">اخبار داغ</h3>
+                        </div>
+                        <div class="widget-content">
+                            <div class="popular-list">
+                                @{
+                                    int rank = 1;
+                                }
+                                @foreach (var item in Model.NewsList)
+                                {
+                                    <div class="popular-item">
+                                        <div class="popular-rank">@rank</div>
+                                        <div class="popular-content">
+                                            <div class="popular-title">
+                                                <a href="/Home/NewsDetail/@item.Id">@item.Title</a>
+                                            </div>
+                                            <div class="popular-time">@item.Date.ToString("yyyy/MM/dd")</div>
+                                        </div>
+                                    </div>
+                                    rank++;
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div class="widget newsletter-widget">
+                        <div class="widget-header">
+                            <h3 class="widget-title"><i class="bi bi-envelope"></i> خبرنامه</h3>
+                        </div>
+                        <div class="widget-content">
+                            <p>برای دریافت آخرین اخبار، ایمیل خود را وارد کنید.</p>
+                            <form class="newsletter-form">
+                                <input type="email" placeholder="ایمیل شما" />
+                                <button type="submit" class="btn btn-primary">عضویت</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    
+                    <div class="widget">
+                        <div class="widget-header">
+                            <h3 class="widget-title"><i class="bi bi-tags"></i> برچسب‌ها</h3>
+                        </div>
+                        <div class="widget-content">
+                            <div class="tags-cloud">
+                                @foreach (var Rel in Model.Keyword)
+                                {
+                                    <a href="/Home/ShowAll?catId=@Rel.Id" class="tag">#@Rel.Name</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                  
+
+                </aside>
+
+
+            </div>
+        </div>
+    </section>
+
+    
+    <div class="comments-section">
+        <h3 class="comments-title"><i class="far fa-comments"></i> نظرات کاربران (@Model.Comments.Count)</h3>
+
+        <form asp-action="AddComment" asp-controller="Home" method="post">
+            <!-- شناسه خبر -->
+            <input type="hidden" name="NewsId" value="@Model.News.Id" />
+
+            <input type="hidden" name="Date" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+
+            <input type="hidden" name="IsValid" value="true" />
+
+     
+            <input type="hidden" name="Profile" value="Default.png" />
+
+            <div class="form-group">
+                <label for="Author">نام شما</label>
+                <input type="text" name="Author" id="Author" class="form-control" placeholder="" required />
+            </div>
+
+            <!-- متن نظر -->
+            <div class="form-group">
+                <label for="Body">نظر شما</label>
+                <textarea name="Body" id="Body" class="form-control" placeholder="نظر خود را وارد کنید..." required></textarea>
+            </div>
+
+            <!-- دکمه ارسال -->
+            <button type="submit" class="btn btn-primary">ارسال نظر</button>
+        </form>
+
+   
+   
+        <div class="comments-list">
+            @if (Model.Comments != null && Model.Comments.Any())
+            {
+                foreach (var comment in Model.Comments)
+                {
+                    <div class="comment">
+                        <div class="comment-avatar">
+                            <img src="~/images/@(string.IsNullOrEmpty(comment.Profile) ? "default-user.png" : comment.Profile)" alt="@comment.Author" />
+                        </div>
+                        <div class="comment-content">
+                            <div class="comment-header">
+                                <span class="comment-name">@comment.Author</span>
+                                <span class="comment-date">@comment.Date.ToString("yyyy/MM/dd")</span>
+                            </div>
+                            <div class="comment-body">
+                                <p>@comment.Body</p>
+                            </div>
+                            <div class="comment-actions">
+                                <a href="#" class="comment-action"><i class="far fa-thumbs-up"></i> پسندیدم</a>
+                                <a href="#" class="comment-action"><i class="far fa-reply"></i> پاسخ</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p>نظری برای این مطلب ثبت نشده است.</p>
+            }
+        </div>
+    </div>
+
+    
+    <script src="~/js/SingleMode5.js"></script>
+    <script src="~/js/MenoSubset.js"></script>
+    <script src="~/js/ScrollerMeno.js"></script>
+    <script src="~/js/Shared_menu.js"></script>
+    <script src="~/js/buttonDynamic.js"></script>
+</body>
+</html>

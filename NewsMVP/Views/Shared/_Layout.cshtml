@@ -1,0 +1,150 @@
+﻿@using NewsMVP.Models
+@using NewsMVP.MOdels
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - خبرگزاری اتفاق</title>
+
+    <link rel="stylesheet" href="~/css/LoginMode4.css" />
+    <link rel="stylesheet" href="~/Font/fontawesome-free-6.7.2-web/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/Animate.min.css" />
+    <link rel="stylesheet" href="~/css/MenoSubset.css" />
+    <link rel="stylesheet" href="~/css/Shared_menu.css" />
+    <link rel="stylesheet" href="~/css/ContactUsMode4.css" />
+    <link rel="stylesheet" href="~/css/SingleMode4.css" />
+    <link rel="stylesheet" href="~/css/SignupMode4.css" />
+    <link rel="stylesheet" href="~/css/MainMode4.css" />
+
+    <script src="~/js/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+
+    <!-- Side Navigation Mobile -->
+    <div id="mySidenav" class="sidenav" style="width:0px;">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        @await Component.InvokeAsync("SideNewsMobile")
+    </div>
+
+    <!-- Header Top -->
+    <header class="header">
+        <div class="container">
+            <div class="header-top-content">
+                <div class="header-top-left">
+                    <div class="trending-label">
+                        <i class="fas fa-bolt"></i>
+                        <span>خبرهای داغ</span>
+                    </div>
+                    <div class="trending-news">
+                        <div class="trending-items">
+                            @await Component.InvokeAsync("TrendingNews")
+                        </div>
+                    </div>
+                </div>
+                <div class="header-top-right">
+                    @await Component.InvokeAsync("SocialLinks")
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Header Main -->
+    <header class="header">
+        <div class="container">
+            <div class="header-main-content">
+                <div class="logo">
+                    <div class="logo-icon"><i class="fas fa-heartbeat"></i></div>
+                    <h1 class="logo-text">خبرگزاری <span>اتفاق</span></h1>
+                </div>
+                <div class="header-actions">
+                    <form class="search-form" asp-action="ShowAll" asp-controller="Home" method="get">
+                        <input type="text" name="search" class="search-input" placeholder="جستجو...">
+                        <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
+                    </form>
+                    <div class="user-actions">
+                        <a class="btn btn-outline btn-sm" asp-controller="Home" asp-action="Login">ورود</a>
+                        <a class="btn btn-primary btn-sm" asp-controller="Home" asp-action="Signup">ثبت‌نام</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Navigation -->
+    <nav class="main-nav">
+        <div class="container">
+            <div class="nav-container">
+                <span class="sidebarMenoButton" style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+                <ul class="nav-menu nav_menud WidthDynamic">
+                    <li class="nav-item has-submenu">
+                        <a class="nav-link">دسته‌ها <i class="fa fa-caret-down Icon_category"></i></a>
+                        <div class="submenuOrginal">
+                            <ul class="submenu">
+                                @await Component.InvokeAsync("MenuCategories")
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link NavSide" asp-controller="Home" asp-action="ContactUs">تماس با ما</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+   
+   
+
+    <!-- Content Body -->
+    <div class="MOTEGAIER">
+        @RenderBody()
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" >
+        <div class="container">
+            <div class="footer-widgets">
+                <div class="footer-widget">
+                    <h3 class="footer-widget-title">درباره ما</h3>
+                    <p class="footer-about">خبرگزاری اتفاق، پیشرو در ارائه اخبار دقیق و به‌روز از ایران و جهان.</p>
+                    @await Component.InvokeAsync("SocialLinks")
+                </div>
+                <div class="footer-widget">
+                    <h3 class="footer-widget-title">دسترسی سریع</h3>
+                    <ul class="footer-links">
+                        <li><a asp-controller="Home" asp-action="Index"><i class="fas fa-angle-left"></i> صفحه اصلی</a></li>
+                        <li><a asp-controller="Home" asp-action="ShowAll" asp-route-category="سیاسی"><i class="fas fa-angle-left"></i> اخبار سیاسی</a></li>
+                        <li><a asp-controller="Home" asp-action="ShowAll" asp-route-category="ورزشی"><i class="fas fa-angle-left"></i> اخبار ورزشی</a></li>
+                    </ul>
+                </div>
+                <div class="footer-widget">
+                    <h3 class="footer-widget-title">آخرین مطالب</h3>
+                    <ul class="footer-links">
+                        @await Component.InvokeAsync("LatestNewsFooter")
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <div class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Scripts -->
+    <script src="~/js/Shared_menu.js"></script>
+    <script src="~/js/MainMode4.js"></script>
+    <script src="~/js/ScrollerMeno.js"></script>
+    <script src="~/js/MenoSubset.js"></script>
+    <script src="~/js/buttonDynamic.js"></script>
+    <script src="~/js/ContactUsMode4.js"></script>
+    <script src="~/js/LoginMode4.js"></script>
+    <script src="~/js/SignupMode4.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

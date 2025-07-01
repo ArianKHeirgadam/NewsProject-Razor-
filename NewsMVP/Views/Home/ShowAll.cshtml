@@ -1,0 +1,74 @@
+﻿@model NewsMVP.Models.HomeViewModel
+@{
+    ViewData["Title"] = "ShowAll";
+}
+
+<div class="news-content">
+    <section class="news-grid-section">
+        <div class="container">
+
+            <div class="section-header" style="margin-bottom: 2rem;">
+                <h2 class="section-title">
+                    @if (!string.IsNullOrEmpty(Model.SelectedCategory))
+                    {
+                        <span>اخبار مربوط به دسته‌بندی: <strong>@Model.SelectedCategory</strong></span>
+                    }
+                    else
+                    {
+                        <span>آخرین اخبار</span>
+                    }
+                </h2>
+            </div>
+
+            <div class="news-grid">
+                @foreach (var news in Model.AkharinNews)
+                {
+                    <article class="news-card">
+                        <div class="news-card-image">
+                            <img src="~/images/@news.ImageUrlno1" alt="@news.Title">
+                            <div class="news-card-category">@news.CategoryName</div>
+                        </div>
+                        <div class="news-card-content">
+                            <h3 class="news-card-title">
+                                <a asp-action="NewsDetail" asp-controller="Home" asp-route-id="@news.Id" class="news-card-link">
+                                    @news.Title
+                                </a>
+                            </h3>
+                            <p class="news-card-excerpt">@news.Summry</p>
+                            <div class="news-card-meta">
+                                <div class="news-card-date">
+                                    <i class="far fa-clock"></i>
+                                    <span>@news.Date.ToString("yyyy/MM/dd")</span>
+                                </div>
+                                <div class="news-card-comments">
+                                    <i class="far fa-comment"></i>
+                                    <span>
+                                        @(Model.Comments.Count(c => c.NewsId == news.Id && c.IsValid)) نظر
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                }
+            </div>
+        </div>
+    </section>
+
+    @if (Model.TotalPages > 1)
+    {
+        <div class="pagination-container" style="margin-top: 3rem; margin-bottom: 4rem; text-align: center;">
+            <ul class="pagination-list" style="display: inline-flex; gap: 0.5rem; padding: 0; list-style: none;">
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li>
+                        <a href="@Url.Action("ShowAll", "Home", new { page = i, category = Model.SelectedCategory })"
+                           class="pagination-link @(i == Model.CurrentPage ? "active" : "")"
+                           style="padding: 0.5rem 1rem; border: 1px solid var(--primary); border-radius: var(--radius); text-decoration: none; color: var(--primary); transition: var(--transition); @(i == Model.CurrentPage ? "background-color: var(--primary); color: white;" : "")">
+                            @i
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+</div>

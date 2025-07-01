@@ -1,0 +1,12 @@
+﻿@using NewsMVP.MOdels
+@model List<TblNews>
+
+@foreach (var news in Model)
+{
+    <li style="display: flex; align-items: center; margin-bottom: 10px;">
+        <a href="/Home/NewsDetail/@news.Id" class="footer-link" style="display: flex; align-items: center; text-decoration: none;">
+            <img src="~/images/@news.ImageUrlno1" alt="@news.Title" style="width: 50px; height: 40px; object-fit: cover; margin-left: 10px; border-radius: 4px;" />
+            <span><i class="fas fa-angle-left"></i> @news.Title</span>
+        </a>
+    </li>
+}
