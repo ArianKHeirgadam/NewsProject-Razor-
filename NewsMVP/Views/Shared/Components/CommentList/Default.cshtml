@@ -1,0 +1,32 @@
+﻿@model List<NewsMVP.MOdels.TblComments>
+
+<div class="comments-list">
+    @if (Model != null && Model.Any())
+    {
+        foreach (var comment in Model)
+        {
+            <div class="comment">
+                <div class="comment-avatar">
+                    <img src="~/images/@(string.IsNullOrEmpty(comment.Profile) ? "default-user.png" : comment.Profile)" alt="@comment.Author" />
+                </div>
+                <div class="comment-content">
+                    <div class="comment-header">
+                        <span class="comment-name">@comment.Author</span>
+                        <span class="comment-date">@comment.Date.ToString("yyyy/MM/dd")</span>
+                    </div>
+                    <div class="comment-body">
+                        <p>@comment.Body</p>
+                    </div>
+                    <div class="comment-actions">
+                        <a href="#" class="comment-action"><i class="far fa-thumbs-up"></i> پسندیدم</a>
+                        <a href="#" class="comment-action"><i class="far fa-reply"></i> پاسخ</a>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p>نظری برای این مطلب ثبت نشده است.</p>
+    }
+</div>

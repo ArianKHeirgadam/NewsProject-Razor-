@@ -1,0 +1,34 @@
+﻿@using NewsMVP.MOdels
+@model List<TblNews>
+
+
+<div class="slider-container">
+    @for (int index = 0; index < Model.Count; index++)
+    {
+        var i = Model[index];
+        var activeClass = index == 0 ? "active" : "";
+        <div class="slide @activeClass">
+            <img src="~/images/@i.ImageUrlno1" alt="اسلاید @index" class="slide-image">
+            <div class="slide-overlay"></div>
+            <div class="slide-content">
+                <div class="slide-category">@i.CategoryName</div>
+                <h2 class="slide-title">
+                    <a asp-action="NewsDetail" asp-controller="Home" asp-route-id="@i.Id">
+                        @i.Title
+                    </a>
+                </h2>
+                <p class="slide-excerpt">@i.Summry</p>
+                <div class="slide-meta">
+                    <div class="meta-item">
+                        <i class="far fa-clock"></i>
+                        <span>@i.Date.ToString("yyyy/MM/dd")</span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="far fa-eye"></i>
+                        <span>@i.ViewCount بازدید</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

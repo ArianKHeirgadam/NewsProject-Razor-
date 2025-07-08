@@ -1,0 +1,21 @@
+﻿@using NewsMVP.MOdels
+@model List<TblNews>
+
+<div class="popular-list">
+    @{
+        int rank = 1;
+    }
+    @foreach (var item in Model)
+    {
+        <div class="popular-item">
+            <div class="popular-rank">@rank</div>
+            <div class="popular-content">
+                <div class="popular-title">
+                    <a href="/Home/NewsDetail/@item.Id">@item.Title</a>
+                </div>
+                <div class="popular-time">@item.Date.ToString("yyyy/MM/dd")</div>
+            </div>
+        </div>
+        rank++;
+    }
+</div>

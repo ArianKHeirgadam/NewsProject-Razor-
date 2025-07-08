@@ -42,7 +42,7 @@
                         const token = typeof res === 'string' ? res.replace(/^"|"$/g, '') : res?.token;
 
                         if (token && token.length > 10) {
-                            localStorage.setItem('token', token);
+                            document.cookie = `token=${token}; path=/; max-age=86400`;
                             alert('ورود موفق بود!');
                             window.location.href = '/';
                         } else {

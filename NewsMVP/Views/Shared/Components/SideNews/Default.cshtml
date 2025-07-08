@@ -1,0 +1,29 @@
+﻿@using NewsMVP.MOdels
+@model List<TblNews>
+
+
+<div class="side-news">
+    @foreach (var item in Model)
+    {
+        <div class="side-card">
+            <div class="side-card-image">
+                <img src="~/images/@item.ImageUrlno1" alt="@item.Title">
+            </div>
+            <div class="side-card-overlay"></div>
+            <div class="side-card-content">
+                <div class="side-card-category">@item.CategoryName</div>
+                <h3 class="side-card-title">
+                    <a asp-action="NewsDetail" asp-controller="Home" asp-route-id="@item.Id">
+                        @item.Title
+                    </a>
+                </h3>
+                <div class="side-card-meta">
+                    <i class="far fa-clock"></i>
+                    <span>@item.Date.ToString("yyyy/MM/dd")</span>
+                    <i class="far fa-eye ml-2"></i>
+                    <span>@item.ViewCount بازدید</span>
+                </div>
+            </div>
+        </div>
+    }
+</div>

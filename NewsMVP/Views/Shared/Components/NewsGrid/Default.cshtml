@@ -1,0 +1,31 @@
+﻿@model List<NewsMVP.Utilities.ViewComponents.NewsWithCommentCount>
+
+<div class="news-grid">
+    @foreach (var item in Model)
+    {
+        <article class="news-card">
+            <div class="news-card-image">
+                <img src="~/images/@item.News.ImageUrlno1" alt="@item.News.Title">
+                <div class="news-card-category">@item.News.CategoryName</div>
+            </div>
+            <div class="news-card-content">
+                <h3 class="news-card-title">
+                    <a asp-action="NewsDetail" asp-controller="Home" asp-route-id="@item.News.Id" class="news-card-link">
+                        @item.News.Title
+                    </a>
+                </h3>
+                <p class="news-card-excerpt">@item.News.Summry</p>
+                <div class="news-card-meta">
+                    <div class="news-card-date">
+                        <i class="far fa-clock"></i>
+                        <span>@item.News.Date.ToString("yyyy/MM/dd")</span>
+                    </div>
+                    <div class="news-card-comments">
+                        <i class="far fa-comment"></i>
+                        <span>@item.CommentCount نظر</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+    }
+</div>

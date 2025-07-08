@@ -577,21 +577,29 @@ button {
 }
 
 .nav-container {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
+    width: 100%;
+    overflow-x: auto;
+    padding: 0;
+    margin: 0;
 }
 
+
 .nav-menu {
-    gap: var(--space-md);
-    padding-left: 42px;
-    margin: 0px 66px 0px 13px;
-    white-space: nowrap;
     display: flex;
-    display: -webkit-box;
-    overflow-x: hidden;
-    overflow-y: hidden;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0 1rem;
+    margin: 0;
+    max-width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) transparent;
 }
+
+
 
 .nav-link {
     display: block;
@@ -2076,10 +2084,14 @@ button {
     }
 
     .nav-container {
-        position: relative;
+        width: 100%;
+        max-width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        box-sizing: border-box;
         direction: rtl;
-        margin: 5px 4px -5px 0px;
     }
+
 
    
 

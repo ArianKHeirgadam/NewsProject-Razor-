@@ -75,7 +75,7 @@
                             data: JSON.stringify({ userName, password }),
                             success: (res) => {
                                 const token = typeof res === 'string' ? res.replace(/^"|"$/g, '') : res.token;
-                                localStorage.setItem('token', token);
+                                    document.cookie = `token=${token}; path=/; max-age=86400`;
                                 window.location.href = '/';
                             },
                             error: err => alert('خطا در ورود پس از ثبت‌نام: ' + err.responseText)

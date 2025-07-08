@@ -1,5 +1,4 @@
-﻿@model NewsMVP.Models.HomeViewModel
-@{
+﻿@{
     ViewData["Title"] = "Index";
 }
 
@@ -7,76 +6,19 @@
     <div class="container">
         <div class="hero-grid">
             <div class="main-slider">
-                <div class="slider-container">
-                    @for (int index = 0; index < Model.Slider.Count; index++)
-                    {
-                        var i = Model.Slider[index];
-                        var activeClass = index == 0 ? "active" : "";
-                        <div class="slide @activeClass">
-                            <img src="~/images/@i.ImageUrlno1" alt="اسلاید @index" class="slide-image">
-                            <div class="slide-overlay"></div>
-                            <div class="slide-content">
-                                <div class="slide-category">@i.CategoryName</div>
-                                <h2 class="slide-title">
-                                    <a asp-action="NewsDetail" asp-controller="Home" asp-route-id="@i.Id">
-                                        @i.Title
-                                    </a>
-                                </h2>
-                                <p class="slide-excerpt">@i.Summry</p>
-                                <div class="slide-meta">
-                                    <div class="meta-item">
-                                        <i class="far fa-clock"></i>
-                                        <span>@i.Date.ToString("yyyy/MM/dd")</span>
-                                    </div>
-                                    <div class="meta-item">
-                                        <i class="far fa-eye"></i>
-                                        <span>@i.ViewCount بازدید</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    }
+                @await Component.InvokeAsync("MainSlider")
 
-                    <div class="slider-controls">
-                        <div class="slider-dots">
-                            @for (int j = 0; j < Model.Slider.Count; j++)
-                            {
-                                var activeDot = j == 0 ? "active" : "";
-                                <span class="slider-dot @activeDot" data-index="@j"></span>
-                            }
-                        </div>
-                        <div class="slider-arrows">
-                            <button class="slider-arrow slider-prev"><i class="fas fa-chevron-right"></i></button>
-                            <button class="slider-arrow slider-next"><i class="fas fa-chevron-left"></i></button>
-                        </div>
+                <div class="slider-controls">
+                    <div class="slider-dots"></div>
+                    <div class="slider-arrows">
+                        <button class="slider-arrow slider-prev"><i class="fas fa-chevron-right"></i></button>
+                        <button class="slider-arrow slider-next"><i class="fas fa-chevron-left"></i></button>
                     </div>
                 </div>
             </div>
 
             <div class="side-news">
-                @foreach (var item in Model.Side.OrderByDescending(n => n.ViewCount))
-                {
-                    <div class="side-card">
-                        <div class="side-card-image">
-                            <img src="~/images/@item.ImageUrlno1" alt="@item.Title">
-                        </div>
-                        <div class="side-card-overlay"></div>
-                        <div class="side-card-content">
-                            <div class="side-card-category">@item.CategoryName</div>
-                            <h3 class="side-card-title">
-                                <a asp-action="NewsDetail" asp-controller="Home" asp-route-id="@item.Id">
-                                    @item.Title
-                                </a>
-                            </h3>
-                            <div class="side-card-meta">
-                                <i class="far fa-clock"></i>
-                                <span>@item.Date.ToString("yyyy/MM/dd")</span>
-                                <i class="far fa-eye ml-2"></i>
-                                <span>@item.ViewCount بازدید</span>
-                            </div>
-                        </div>
-                    </div>
-                }
+                @await Component.InvokeAsync("SideNews")
             </div>
         </div>
     </div>
@@ -94,7 +36,7 @@
         function showSlide(index) {
             slides.forEach((slide, i) => {
                 slide.classList.toggle("active", i === index);
-                dots[i].classList.toggle("active", i === index);
+                if (dots[i]) dots[i].classList.toggle("active", i === index);
             });
         }
 
@@ -122,49 +64,15 @@
     });
 </script>
 
-<div class="container">
-    <div class="features-grid">
-        <!-- کارت‌های آب‌وهوا، ارز، نظرسنجی -->
-        <!-- اینجا ثابت موند چون ربطی به دیتا نداره -->
-    </div>
-</div>
 
-<section class="news-grid-section" >
+<section class="news-grid-section">
     <div class="container">
         <div class="section-header">
             <h2 class="section-title">آخرین اخبار</h2>
             <a class="view-all" asp-controller="Home" asp-action="ShowAll">مشاهده همه <i class="fas fa-angle-left"></i></a>
         </div>
 
-        <div class="news-grid">
-            @foreach (var item in Model.Latest)
-            {
-                var commentCount = Model.Comments.Count(c => c.NewsId == item.Id);
-                <article class="news-card">
-                    <div class="news-card-image">
-                        <img src="~/images/@item.ImageUrlno1" alt="@item.Title">
-                    </div>
-                    <div class="news-card-content">
-                        <h3 class="news-card-title">
-                            <a asp-action="NewsDetail" asp-controller="Home" asp-route-id="@item.Id" class="news-card-link">
-                                @item.Title
-                            </a>
-                        </h3>
-                        <p class="news-card-excerpt">@item.Summry</p>
-                        <div class="news-card-meta">
-                            <div class="news-card-date">
-                                <i class="far fa-clock"></i>
-                                <span>@item.Date.ToString("yyyy/MM/dd")</span>
-                            </div>
-                            <div class="news-card-comments">
-                                <i class="far fa-comment"></i>
-                                <span>@commentCount نظر</span>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            }
-        </div>
+        @await Component.InvokeAsync("LatestNewsHome")
     </div>
 </section>
 
@@ -208,4 +116,6 @@
             });
         });
     });
+
 </script>
+<div style="margin-bottom: 60px;"></div>

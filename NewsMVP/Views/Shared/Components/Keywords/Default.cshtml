@@ -1,0 +1,9 @@
+﻿@using NewsMVP.MOdels
+@model List<TblKeyword>
+
+<div class="tags-cloud">
+    @foreach (var keyword in Model)
+    {
+        <a href="/Home/ShowAll?catId=@keyword.Id" class="tag">#@keyword.Name</a>
+    }
+</div>
